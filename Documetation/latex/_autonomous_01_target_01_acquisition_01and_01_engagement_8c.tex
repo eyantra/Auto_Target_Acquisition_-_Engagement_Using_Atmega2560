@@ -1,0 +1,849 @@
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c}{
+\section{C:/Users/pranav/Desktop/code/Autonomous Target Acquisition and Engagement.c File Reference}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c}\index{C:/Users/pranav/Desktop/code/Autonomous Target Acquisition and Engagement.c@{C:/Users/pranav/Desktop/code/Autonomous Target Acquisition and Engagement.c}}
+}
+{\ttfamily \#include $<$avr/io.h$>$}\par
+{\ttfamily \#include $<$avr/interrupt.h$>$}\par
+{\ttfamily \#include $<$util/delay.h$>$}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a9d4ad5467cb8a39312513dfaaf4d950a}{FCPU}~11059200ul
+\begin{DoxyCompactList}\small\item\em defined here to make sure that program works properly \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af8903d8eea3868940c60af887473b152}{RS}~0
+\begin{DoxyCompactList}\small\item\em Command input channel in LCD. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_afc4ded33ac0ca43defcce639e965748a}{RW}~1
+\begin{DoxyCompactList}\small\item\em Write channel in LCD. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a22e6626f2c98ed902f8ded47f6438c05}{EN}~2
+\begin{DoxyCompactList}\small\item\em Enable in LCD. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab44cc79afa2e158e5173a42d0bdd01b0}{lcd\_\-port}~PORTC
+\begin{DoxyCompactList}\small\item\em Defining the LCD port. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0e1a587a6bb537fb5e9c836231291df4}{sbit}(reg, bit)~reg $|$= (1$<$$<$bit)
+\begin{DoxyCompactList}\small\item\em Macro defined for Setting a bit of any register. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aad24a3ffd9b61c778f99521f717864a9}{cbit}(reg, bit)~reg \&= $\sim$(1$<$$<$bit)
+\begin{DoxyCompactList}\small\item\em Macro defined for Clearing a bit of any register. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af0a76327c4f1a6465ebedfe6ced86d3a}{upper\_\-limit}~60
+\begin{DoxyCompactList}\small\item\em Upper limit for rotation of servo motor. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0f2f22b987f15b4e1c45f3e4d10aa0ee}{lower\_\-limit}~0
+\begin{DoxyCompactList}\small\item\em Lower limit for rotation of servo motor. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a2e935d065a2022d39231dcdab4a5230e}{rotation\_\-angle}~5
+\begin{DoxyCompactList}\small\item\em Rotation angle of the servo motors. \end{DoxyCompactList}\item 
+\#define \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a7e4c637a4e80d32ed5f4d410f48711ef}{left\_\-right\_\-delay}~80
+\begin{DoxyCompactList}\small\item\em The time to run the bot to left before stopping during both scanning and centering. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa239ab5a6704dda21c5071b32a3cf3a8}{init\_\-ports} ()
+\begin{DoxyCompactList}\small\item\em Initializing the ports of LCD,motors,servo motors,buzzer. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a03dc9c23d8a1f0bb7e5b395c019f3732}{lcd\_\-reset} ()
+\begin{DoxyCompactList}\small\item\em For LCD reset ie clear screen,curser at initial position. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ac23e73124dc9fabae95671fe71d074a6}{lcd\_\-init} ()
+\begin{DoxyCompactList}\small\item\em LCD initialization used in init ports. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_afff7370014e73715ce0d31b4d994c916}{lcd\_\-wr\_\-command} (unsigned char)
+\begin{DoxyCompactList}\small\item\em Function for writing a command into the lcd screen. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a02b47802a409ab525f2fda28140150b0}{lcd\_\-wr\_\-char} (char)
+\begin{DoxyCompactList}\small\item\em Function for writing into the lcd screen charactar at a time. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a8a87d9ade20f16ea6fcbb5e577f57692}{lcd\_\-line1} ()
+\begin{DoxyCompactList}\small\item\em Function for writing into the lcd screen in the first line. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a7be548d155d3819a14a30964d7082f65}{lcd\_\-line2} ()
+\begin{DoxyCompactList}\small\item\em Function for writing into the lcd screen in the second line. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a1eeb0747ef56e3dab0a64e7688b3ff65}{lcd\_\-string} (char $\ast$)
+\begin{DoxyCompactList}\small\item\em Function for writing into the lcd screen in the from the current location. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af55f75f83e87baf043c835ef54412b99}{lcd\_\-port\_\-config} (void)
+\begin{DoxyCompactList}\small\item\em Function to configure LCD port. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a10cb8a1450bfb05cd9c72ad09ce7f2fe}{motion\_\-set} (unsigned char Direction)
+\begin{DoxyCompactList}\small\item\em Function to set motion in the dc motors. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0b5f946b51550fe862b59f91ae5fe9f9}{forward} (void)
+\begin{DoxyCompactList}\small\item\em Function to move the bot forward. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af58faf62f4e3606140250fb9ed314db5}{left} (void)
+\begin{DoxyCompactList}\small\item\em Function to move the bot Left. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3344ca821ab12c0ceaa9a9c03b473462}{back} (void)
+\begin{DoxyCompactList}\small\item\em Function to move the bot backward. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae56b9a694abd24fe3e7af591fc50b748}{right} (void)
+\begin{DoxyCompactList}\small\item\em Function to move the bot right. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aacf6bf8e121fea8b0a92d7197b73fe27}{stop} (void)
+\begin{DoxyCompactList}\small\item\em Function to stop the bot. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a17cf811a885634d71a23e8d4a20457f0}{motion\_\-pin\_\-config} (void)
+\begin{DoxyCompactList}\small\item\em Initializing the motion pins in the bot. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3f8a3732239f1ff251be98da40c120e1}{lcd\_\-set\_\-4bit} ()
+\begin{DoxyCompactList}\small\item\em Function to Reset LCD. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a60675105b93bba6762aaab88d732365a}{lcd\_\-home} ()
+\begin{DoxyCompactList}\small\item\em Function to bring cursor at home position. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a58b03aa7464b2fb9b23e24fe8cd06df9}{lcd\_\-cursor} (char row, char column)
+\begin{DoxyCompactList}\small\item\em Position the LCD cursor at \char`\"{}row\char`\"{}, \char`\"{}column\char`\"{}. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a73a5ab32b7aee89eeb34133ff3fc8bc8}{lcd\_\-print} (char row, char coloumn, unsigned int value, int digits)
+\begin{DoxyCompactList}\small\item\em Function To Print Any input value upto the desired digit on LCD. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af87425963403c39dd2a5686722662e1b}{servo1\_\-pin\_\-config} (void)
+\begin{DoxyCompactList}\small\item\em Function to configure PORTB 5 pin for servo motor 1 operation. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a9cbd58ccc49c66f6691fc3e8a4e06c07}{servo2\_\-pin\_\-config} (void)
+\begin{DoxyCompactList}\small\item\em Function to configure PORTB 6 pin for servo motor 2 operation. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aea7136b3f5f3dee0bba462ad740018e0}{servo3\_\-pin\_\-config} (void)
+\begin{DoxyCompactList}\small\item\em Function to configure PORTB 7 pin for servo motor 3 operation. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a968c314be24f7043eeff034ebf7c4a03}{timer1\_\-init} (void)
+\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a5e83e38113e61aa98a5737499e18a31b}{servo\_\-1} (unsigned char degrees)
+\begin{DoxyCompactList}\small\item\em Function to rotate Servo 1 by a specified angle in the multiples of 2.25 degrees. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a581d9af2c6c9d23ca521f637075e1bc1}{servo\_\-2} (unsigned char degrees)
+\begin{DoxyCompactList}\small\item\em Function to rotate Servo 2 by a specified angle in the multiples of 2.25 degrees. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a13cace908a54e6c7b6e7ff259b2b1d90}{servo\_\-3} (unsigned char degrees)
+\begin{DoxyCompactList}\small\item\em Function to rotate Servo 3 by a specified angle in the multiples of 2.25 degrees. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a6c7ed6efeeb194c0a0c511380a31a2e5}{servo\_\-1\_\-free} (void)
+\begin{DoxyCompactList}\small\item\em servo\_\-1\_\-free functions unlocks the servo motors from the any angle and make them free by giving 100\% duty cycle at the PWM. This function can be used to reduce the power consumption of the motor if it is holding load against the gravity. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ada43b85d1e8c8343f99fcdaa12b71c3e}{servo\_\-2\_\-free} (void)
+\begin{DoxyCompactList}\small\item\em servo\_\-2\_\-free functions unlocks the servo motors from the any angle and make them free by giving 100\% duty cycle at the PWM. This function can be used to reduce the power consumption of the motor if it is holding load against the gravity. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a24305cafe8f6103e8434f56aa0df538a}{servo\_\-3\_\-free} (void)
+\begin{DoxyCompactList}\small\item\em servo\_\-3\_\-free functions unlocks the servo motors from the any angle and make them free by giving 100\% duty cycle at the PWM. This function can be used to reduce the power consumption of the motor if it is holding load against the gravity. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0c6063fcb1153fa4c8c348b9e759be78}{buzzer\_\-pin\_\-config} (void)
+\begin{DoxyCompactList}\small\item\em Initializing the buzzer ports. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a5c2ba800834495bb295891490cb1c760}{port\_\-init} ()
+\begin{DoxyCompactList}\small\item\em Function to initialize ports. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a4dd394839cc1e77986c84b3a3679bcd8}{buzzer\_\-on} (void)
+\begin{DoxyCompactList}\small\item\em Function to turn the buzzer on. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a93d07c81691fec7a85ea85117d6eca4f}{buzzer\_\-off} (void)
+\begin{DoxyCompactList}\small\item\em Function to turn off the buzzer. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa50c94354a39dd6f4a609f874ac4a43d}{uart1\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Function To Initialize UART1.desired baud rate:9600.actual baud rate:9600 (error 0.0\%).char size: 8 bit.parity: Disabled. \end{DoxyCompactList}\item 
+\hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae34e8fb322ce451af1fa55641835922d}{SIGNAL} (SIG\_\-USART1\_\-RECV)
+\begin{DoxyCompactList}\small\item\em Function called upon recieving a character on the serial port ie UART1.This Function analyses the recieved character and takes appropriate action. \end{DoxyCompactList}\item 
+void \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab01199c927ceda6f9520c7afb0f1b099}{init\_\-devices} ()
+\begin{DoxyCompactList}\small\item\em Function To Initialize all The Devices. \end{DoxyCompactList}\item 
+int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\begin{DoxyCompactList}\small\item\em Main Function This just initializes the ports and goes into a infinate wait. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a433b1c9921d3b90f7c145c781a43f325}{data}
+\begin{DoxyCompactList}\small\item\em To store received data from UDR1. \end{DoxyCompactList}\item 
+int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3cc7dbf631c311fedcb76470f3d44700}{PositionPanServo\_\-1}
+\begin{DoxyCompactList}\small\item\em To maintain the states of the servo moters. \end{DoxyCompactList}\item 
+int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a39900369305e1d93b99e61b67943862c}{PositionPanServo\_\-2}
+\begin{DoxyCompactList}\small\item\em To maintain the states of the servo moters. \end{DoxyCompactList}\item 
+int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af8121d1cd83f65d7889f54689985463f}{PositionPanServo\_\-3}
+\begin{DoxyCompactList}\small\item\em To maintain the states of the servo moters. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a13006074294a071b6c7a268a498f77f7}{temp}
+\begin{DoxyCompactList}\small\item\em temporary variable \end{DoxyCompactList}\item 
+unsigned int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a09cef70e6322053ea80ae603446346c5}{unit}
+\begin{DoxyCompactList}\small\item\em temporary variable \end{DoxyCompactList}\item 
+unsigned int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab84b805352ca4b7ecfc9601ddab528bc}{tens}
+\begin{DoxyCompactList}\small\item\em temporary variable \end{DoxyCompactList}\item 
+unsigned int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a913b0b4b2d4fd1ccc45534741d386cc8}{hundred}
+\begin{DoxyCompactList}\small\item\em temporary variable \end{DoxyCompactList}\item 
+unsigned int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa790b5f78a8f90d800d64c46c3e40205}{thousand}
+\begin{DoxyCompactList}\small\item\em temporary variable \end{DoxyCompactList}\item 
+unsigned int \hyperlink{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae98244497f01cb51c50a6a1d18642b71}{million}
+\begin{DoxyCompactList}\small\item\em temporary variable \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aad24a3ffd9b61c778f99521f717864a9}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!cbit@{cbit}}
+\index{cbit@{cbit}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{cbit}]{\setlength{\rightskip}{0pt plus 5cm}\#define cbit(
+\begin{DoxyParamCaption}
+\item[{}]{reg, }
+\item[{}]{bit}
+\end{DoxyParamCaption}
+)~reg \&= $\sim$(1$<$$<$bit)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aad24a3ffd9b61c778f99521f717864a9}
+
+
+Macro defined for Clearing a bit of any register. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a22e6626f2c98ed902f8ded47f6438c05}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!EN@{EN}}
+\index{EN@{EN}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{EN}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN~2}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a22e6626f2c98ed902f8ded47f6438c05}
+
+
+Enable in LCD. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a9d4ad5467cb8a39312513dfaaf4d950a}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!FCPU@{FCPU}}
+\index{FCPU@{FCPU}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{FCPU}]{\setlength{\rightskip}{0pt plus 5cm}\#define FCPU~11059200ul}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a9d4ad5467cb8a39312513dfaaf4d950a}
+
+
+defined here to make sure that program works properly 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab44cc79afa2e158e5173a42d0bdd01b0}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-port@{lcd\_\-port}}
+\index{lcd\_\-port@{lcd\_\-port}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-port}]{\setlength{\rightskip}{0pt plus 5cm}\#define lcd\_\-port~PORTC}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab44cc79afa2e158e5173a42d0bdd01b0}
+
+
+Defining the LCD port. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a7e4c637a4e80d32ed5f4d410f48711ef}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!left\_\-right\_\-delay@{left\_\-right\_\-delay}}
+\index{left\_\-right\_\-delay@{left\_\-right\_\-delay}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{left\_\-right\_\-delay}]{\setlength{\rightskip}{0pt plus 5cm}\#define left\_\-right\_\-delay~80}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a7e4c637a4e80d32ed5f4d410f48711ef}
+
+
+The time to run the bot to left before stopping during both scanning and centering. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0f2f22b987f15b4e1c45f3e4d10aa0ee}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lower\_\-limit@{lower\_\-limit}}
+\index{lower\_\-limit@{lower\_\-limit}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lower\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}\#define lower\_\-limit~0}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0f2f22b987f15b4e1c45f3e4d10aa0ee}
+
+
+Lower limit for rotation of servo motor. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a2e935d065a2022d39231dcdab4a5230e}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!rotation\_\-angle@{rotation\_\-angle}}
+\index{rotation\_\-angle@{rotation\_\-angle}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{rotation\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}\#define rotation\_\-angle~5}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a2e935d065a2022d39231dcdab4a5230e}
+
+
+Rotation angle of the servo motors. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af8903d8eea3868940c60af887473b152}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!RS@{RS}}
+\index{RS@{RS}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{RS}]{\setlength{\rightskip}{0pt plus 5cm}\#define RS~0}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af8903d8eea3868940c60af887473b152}
+
+
+Command input channel in LCD. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_afc4ded33ac0ca43defcce639e965748a}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!RW@{RW}}
+\index{RW@{RW}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{RW}]{\setlength{\rightskip}{0pt plus 5cm}\#define RW~1}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_afc4ded33ac0ca43defcce639e965748a}
+
+
+Write channel in LCD. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0e1a587a6bb537fb5e9c836231291df4}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!sbit@{sbit}}
+\index{sbit@{sbit}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{sbit}]{\setlength{\rightskip}{0pt plus 5cm}\#define sbit(
+\begin{DoxyParamCaption}
+\item[{}]{reg, }
+\item[{}]{bit}
+\end{DoxyParamCaption}
+)~reg $|$= (1$<$$<$bit)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0e1a587a6bb537fb5e9c836231291df4}
+
+
+Macro defined for Setting a bit of any register. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af0a76327c4f1a6465ebedfe6ced86d3a}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!upper\_\-limit@{upper\_\-limit}}
+\index{upper\_\-limit@{upper\_\-limit}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{upper\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}\#define upper\_\-limit~60}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af0a76327c4f1a6465ebedfe6ced86d3a}
+
+
+Upper limit for rotation of servo motor. 
+
+
+
+\subsection{Function Documentation}
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3344ca821ab12c0ceaa9a9c03b473462}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!back@{back}}
+\index{back@{back}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{back}]{\setlength{\rightskip}{0pt plus 5cm}void back (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3344ca821ab12c0ceaa9a9c03b473462}
+
+
+Function to move the bot backward. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a93d07c81691fec7a85ea85117d6eca4f}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!buzzer\_\-off@{buzzer\_\-off}}
+\index{buzzer\_\-off@{buzzer\_\-off}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{buzzer\_\-off}]{\setlength{\rightskip}{0pt plus 5cm}void buzzer\_\-off (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a93d07c81691fec7a85ea85117d6eca4f}
+
+
+Function to turn off the buzzer. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a4dd394839cc1e77986c84b3a3679bcd8}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!buzzer\_\-on@{buzzer\_\-on}}
+\index{buzzer\_\-on@{buzzer\_\-on}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{buzzer\_\-on}]{\setlength{\rightskip}{0pt plus 5cm}void buzzer\_\-on (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a4dd394839cc1e77986c84b3a3679bcd8}
+
+
+Function to turn the buzzer on. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0c6063fcb1153fa4c8c348b9e759be78}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!buzzer\_\-pin\_\-config@{buzzer\_\-pin\_\-config}}
+\index{buzzer\_\-pin\_\-config@{buzzer\_\-pin\_\-config}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{buzzer\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void buzzer\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0c6063fcb1153fa4c8c348b9e759be78}
+
+
+Initializing the buzzer ports. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0b5f946b51550fe862b59f91ae5fe9f9}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!forward@{forward}}
+\index{forward@{forward}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{forward}]{\setlength{\rightskip}{0pt plus 5cm}void forward (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a0b5f946b51550fe862b59f91ae5fe9f9}
+
+
+Function to move the bot forward. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab01199c927ceda6f9520c7afb0f1b099}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!init\_\-devices@{init\_\-devices}}
+\index{init\_\-devices@{init\_\-devices}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{init\_\-devices}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\-devices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab01199c927ceda6f9520c7afb0f1b099}
+
+
+Function To Initialize all The Devices. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa239ab5a6704dda21c5071b32a3cf3a8}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!init\_\-ports@{init\_\-ports}}
+\index{init\_\-ports@{init\_\-ports}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{init\_\-ports}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\-ports (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa239ab5a6704dda21c5071b32a3cf3a8}
+
+
+Initializing the ports of LCD,motors,servo motors,buzzer. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a58b03aa7464b2fb9b23e24fe8cd06df9}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-cursor@{lcd\_\-cursor}}
+\index{lcd\_\-cursor@{lcd\_\-cursor}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-cursor}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-cursor (
+\begin{DoxyParamCaption}
+\item[{char}]{row, }
+\item[{char}]{column}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a58b03aa7464b2fb9b23e24fe8cd06df9}
+
+
+Position the LCD cursor at \char`\"{}row\char`\"{}, \char`\"{}column\char`\"{}. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a60675105b93bba6762aaab88d732365a}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-home@{lcd\_\-home}}
+\index{lcd\_\-home@{lcd\_\-home}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-home}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-home (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a60675105b93bba6762aaab88d732365a}
+
+
+Function to bring cursor at home position. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ac23e73124dc9fabae95671fe71d074a6}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-init@{lcd\_\-init}}
+\index{lcd\_\-init@{lcd\_\-init}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ac23e73124dc9fabae95671fe71d074a6}
+
+
+LCD initialization used in init ports. 
+
+Function to Initialize LCD. \hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a8a87d9ade20f16ea6fcbb5e577f57692}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-line1@{lcd\_\-line1}}
+\index{lcd\_\-line1@{lcd\_\-line1}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-line1}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-line1 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a8a87d9ade20f16ea6fcbb5e577f57692}
+
+
+Function for writing into the lcd screen in the first line. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a7be548d155d3819a14a30964d7082f65}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-line2@{lcd\_\-line2}}
+\index{lcd\_\-line2@{lcd\_\-line2}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-line2}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-line2 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a7be548d155d3819a14a30964d7082f65}
+
+
+Function for writing into the lcd screen in the second line. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af55f75f83e87baf043c835ef54412b99}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-port\_\-config@{lcd\_\-port\_\-config}}
+\index{lcd\_\-port\_\-config@{lcd\_\-port\_\-config}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-port\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-port\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af55f75f83e87baf043c835ef54412b99}
+
+
+Function to configure LCD port. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a73a5ab32b7aee89eeb34133ff3fc8bc8}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-print@{lcd\_\-print}}
+\index{lcd\_\-print@{lcd\_\-print}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-print (
+\begin{DoxyParamCaption}
+\item[{char}]{row, }
+\item[{char}]{coloumn, }
+\item[{unsigned int}]{value, }
+\item[{int}]{digits}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a73a5ab32b7aee89eeb34133ff3fc8bc8}
+
+
+Function To Print Any input value upto the desired digit on LCD. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a03dc9c23d8a1f0bb7e5b395c019f3732}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-reset@{lcd\_\-reset}}
+\index{lcd\_\-reset@{lcd\_\-reset}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-reset}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a03dc9c23d8a1f0bb7e5b395c019f3732}
+
+
+For LCD reset ie clear screen,curser at initial position. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3f8a3732239f1ff251be98da40c120e1}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-set\_\-4bit@{lcd\_\-set\_\-4bit}}
+\index{lcd\_\-set\_\-4bit@{lcd\_\-set\_\-4bit}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-set\_\-4bit}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-set\_\-4bit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3f8a3732239f1ff251be98da40c120e1}
+
+
+Function to Reset LCD. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a1eeb0747ef56e3dab0a64e7688b3ff65}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-string@{lcd\_\-string}}
+\index{lcd\_\-string@{lcd\_\-string}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a1eeb0747ef56e3dab0a64e7688b3ff65}
+
+
+Function for writing into the lcd screen in the from the current location. 
+
+Function to Print String on LCD. \hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a02b47802a409ab525f2fda28140150b0}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-wr\_\-char@{lcd\_\-wr\_\-char}}
+\index{lcd\_\-wr\_\-char@{lcd\_\-wr\_\-char}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-wr\_\-char}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-wr\_\-char (
+\begin{DoxyParamCaption}
+\item[{char}]{letter}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a02b47802a409ab525f2fda28140150b0}
+
+
+Function for writing into the lcd screen charactar at a time. 
+
+Function to Write Data on LCD. \hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_afff7370014e73715ce0d31b4d994c916}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!lcd\_\-wr\_\-command@{lcd\_\-wr\_\-command}}
+\index{lcd\_\-wr\_\-command@{lcd\_\-wr\_\-command}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{lcd\_\-wr\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-wr\_\-command (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{cmd}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_afff7370014e73715ce0d31b4d994c916}
+
+
+Function for writing a command into the lcd screen. 
+
+Function to Write Command on LCD. \hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af58faf62f4e3606140250fb9ed314db5}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!left@{left}}
+\index{left@{left}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}void left (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af58faf62f4e3606140250fb9ed314db5}
+
+
+Function to move the bot Left. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a840291bc02cba5474a4cb46a9b9566fe}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!main@{main}}
+\index{main@{main}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+Main Function This just initializes the ports and goes into a infinate wait. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a17cf811a885634d71a23e8d4a20457f0}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!motion\_\-pin\_\-config@{motion\_\-pin\_\-config}}
+\index{motion\_\-pin\_\-config@{motion\_\-pin\_\-config}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{motion\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void motion\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a17cf811a885634d71a23e8d4a20457f0}
+
+
+Initializing the motion pins in the bot. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a10cb8a1450bfb05cd9c72ad09ce7f2fe}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!motion\_\-set@{motion\_\-set}}
+\index{motion\_\-set@{motion\_\-set}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{motion\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}void motion\_\-set (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{Direction}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a10cb8a1450bfb05cd9c72ad09ce7f2fe}
+
+
+Function to set motion in the dc motors. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a5c2ba800834495bb295891490cb1c760}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!port\_\-init@{port\_\-init}}
+\index{port\_\-init@{port\_\-init}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{port\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void port\_\-init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a5c2ba800834495bb295891490cb1c760}
+
+
+Function to initialize ports. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae56b9a694abd24fe3e7af591fc50b748}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!right@{right}}
+\index{right@{right}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}void right (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae56b9a694abd24fe3e7af591fc50b748}
+
+
+Function to move the bot right. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af87425963403c39dd2a5686722662e1b}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo1\_\-pin\_\-config@{servo1\_\-pin\_\-config}}
+\index{servo1\_\-pin\_\-config@{servo1\_\-pin\_\-config}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo1\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void servo1\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af87425963403c39dd2a5686722662e1b}
+
+
+Function to configure PORTB 5 pin for servo motor 1 operation. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a9cbd58ccc49c66f6691fc3e8a4e06c07}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo2\_\-pin\_\-config@{servo2\_\-pin\_\-config}}
+\index{servo2\_\-pin\_\-config@{servo2\_\-pin\_\-config}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo2\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void servo2\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a9cbd58ccc49c66f6691fc3e8a4e06c07}
+
+
+Function to configure PORTB 6 pin for servo motor 2 operation. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aea7136b3f5f3dee0bba462ad740018e0}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo3\_\-pin\_\-config@{servo3\_\-pin\_\-config}}
+\index{servo3\_\-pin\_\-config@{servo3\_\-pin\_\-config}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo3\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void servo3\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aea7136b3f5f3dee0bba462ad740018e0}
+
+
+Function to configure PORTB 7 pin for servo motor 3 operation. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a5e83e38113e61aa98a5737499e18a31b}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo\_\-1@{servo\_\-1}}
+\index{servo\_\-1@{servo\_\-1}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-1 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{degrees}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a5e83e38113e61aa98a5737499e18a31b}
+
+
+Function to rotate Servo 1 by a specified angle in the multiples of 2.25 degrees. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a6c7ed6efeeb194c0a0c511380a31a2e5}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo\_\-1\_\-free@{servo\_\-1\_\-free}}
+\index{servo\_\-1\_\-free@{servo\_\-1\_\-free}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo\_\-1\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-1\_\-free (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a6c7ed6efeeb194c0a0c511380a31a2e5}
+
+
+servo\_\-1\_\-free functions unlocks the servo motors from the any angle and make them free by giving 100\% duty cycle at the PWM. This function can be used to reduce the power consumption of the motor if it is holding load against the gravity. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a581d9af2c6c9d23ca521f637075e1bc1}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo\_\-2@{servo\_\-2}}
+\index{servo\_\-2@{servo\_\-2}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-2 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{degrees}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a581d9af2c6c9d23ca521f637075e1bc1}
+
+
+Function to rotate Servo 2 by a specified angle in the multiples of 2.25 degrees. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ada43b85d1e8c8343f99fcdaa12b71c3e}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo\_\-2\_\-free@{servo\_\-2\_\-free}}
+\index{servo\_\-2\_\-free@{servo\_\-2\_\-free}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo\_\-2\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-2\_\-free (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ada43b85d1e8c8343f99fcdaa12b71c3e}
+
+
+servo\_\-2\_\-free functions unlocks the servo motors from the any angle and make them free by giving 100\% duty cycle at the PWM. This function can be used to reduce the power consumption of the motor if it is holding load against the gravity. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a13cace908a54e6c7b6e7ff259b2b1d90}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo\_\-3@{servo\_\-3}}
+\index{servo\_\-3@{servo\_\-3}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-3 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{degrees}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a13cace908a54e6c7b6e7ff259b2b1d90}
+
+
+Function to rotate Servo 3 by a specified angle in the multiples of 2.25 degrees. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a24305cafe8f6103e8434f56aa0df538a}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!servo\_\-3\_\-free@{servo\_\-3\_\-free}}
+\index{servo\_\-3\_\-free@{servo\_\-3\_\-free}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{servo\_\-3\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-3\_\-free (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a24305cafe8f6103e8434f56aa0df538a}
+
+
+servo\_\-3\_\-free functions unlocks the servo motors from the any angle and make them free by giving 100\% duty cycle at the PWM. This function can be used to reduce the power consumption of the motor if it is holding load against the gravity. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae34e8fb322ce451af1fa55641835922d}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!SIGNAL@{SIGNAL}}
+\index{SIGNAL@{SIGNAL}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{SIGNAL}]{\setlength{\rightskip}{0pt plus 5cm}SIGNAL (
+\begin{DoxyParamCaption}
+\item[{SIG\_\-USART1\_\-RECV}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae34e8fb322ce451af1fa55641835922d}
+
+
+Function called upon recieving a character on the serial port ie UART1.This Function analyses the recieved character and takes appropriate action. 
+
+\begin{TabularC}{2}
+\hline
+ASCII-\/Code  &Action Taken  \\\cline{1-2}
+1 &Move the bat back for 500ms  \\\cline{1-2}
+0x30 &Moves both the servo Motors to upper\_\-limit  \\\cline{1-2}
+0x31-\/0x39 &Moves camera according to the nine squares method using the servo motor 2 and moving the bot left or right.Here the rotation is of rotation\_\-angle and in the case of Movement of the bot for the time left\_\-right\_\-delay  \\\cline{1-2}
+0x35 &Beeps the buzzer and fires the laser for a short amount of time which is in servo\_\-3.  \\\cline{1-2}
+$>$0x39 &This moves the servo moter 2 to an angle =(ascii\_\-code-\/0x40)$\ast$rotation\_\-angle  \\\cline{1-2}
+\end{TabularC}
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aacf6bf8e121fea8b0a92d7197b73fe27}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!stop@{stop}}
+\index{stop@{stop}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}void stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aacf6bf8e121fea8b0a92d7197b73fe27}
+
+
+Function to stop the bot. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a968c314be24f7043eeff034ebf7c4a03}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!timer1\_\-init@{timer1\_\-init}}
+\index{timer1\_\-init@{timer1\_\-init}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{timer1\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void timer1\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a968c314be24f7043eeff034ebf7c4a03}
+TIMER1 initialization in 10 bit fast PWM mode prescale:256 WGM: 7) PWM 10bit fast, TOP=0x03FF actual value: 42.187Hz 
+
+Output compare eegister high value for servo 3 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa50c94354a39dd6f4a609f874ac4a43d}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!uart1\_\-init@{uart1\_\-init}}
+\index{uart1\_\-init@{uart1\_\-init}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{uart1\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void uart1\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa50c94354a39dd6f4a609f874ac4a43d}
+
+
+Function To Initialize UART1.desired baud rate:9600.actual baud rate:9600 (error 0.0\%).char size: 8 bit.parity: Disabled. 
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a433b1c9921d3b90f7c145c781a43f325}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!data@{data}}
+\index{data@{data}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf data}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a433b1c9921d3b90f7c145c781a43f325}
+
+
+To store received data from UDR1. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a913b0b4b2d4fd1ccc45534741d386cc8}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!hundred@{hundred}}
+\index{hundred@{hundred}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{hundred}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf hundred}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a913b0b4b2d4fd1ccc45534741d386cc8}
+
+
+temporary variable 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae98244497f01cb51c50a6a1d18642b71}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!million@{million}}
+\index{million@{million}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{million}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf million}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ae98244497f01cb51c50a6a1d18642b71}
+
+
+temporary variable 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3cc7dbf631c311fedcb76470f3d44700}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!PositionPanServo\_\-1@{PositionPanServo\_\-1}}
+\index{PositionPanServo\_\-1@{PositionPanServo\_\-1}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{PositionPanServo\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf PositionPanServo\_\-1}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a3cc7dbf631c311fedcb76470f3d44700}
+
+
+To maintain the states of the servo moters. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a39900369305e1d93b99e61b67943862c}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!PositionPanServo\_\-2@{PositionPanServo\_\-2}}
+\index{PositionPanServo\_\-2@{PositionPanServo\_\-2}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{PositionPanServo\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf PositionPanServo\_\-2}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a39900369305e1d93b99e61b67943862c}
+
+
+To maintain the states of the servo moters. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af8121d1cd83f65d7889f54689985463f}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!PositionPanServo\_\-3@{PositionPanServo\_\-3}}
+\index{PositionPanServo\_\-3@{PositionPanServo\_\-3}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{PositionPanServo\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf PositionPanServo\_\-3}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_af8121d1cd83f65d7889f54689985463f}
+
+
+To maintain the states of the servo moters. 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a13006074294a071b6c7a268a498f77f7}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!temp@{temp}}
+\index{temp@{temp}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{temp}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf temp}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a13006074294a071b6c7a268a498f77f7}
+
+
+temporary variable 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab84b805352ca4b7ecfc9601ddab528bc}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!tens@{tens}}
+\index{tens@{tens}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{tens}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf tens}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_ab84b805352ca4b7ecfc9601ddab528bc}
+
+
+temporary variable 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa790b5f78a8f90d800d64c46c3e40205}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!thousand@{thousand}}
+\index{thousand@{thousand}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{thousand}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf thousand}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_aa790b5f78a8f90d800d64c46c3e40205}
+
+
+temporary variable 
+
+\hypertarget{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a09cef70e6322053ea80ae603446346c5}{
+\index{Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}!unit@{unit}}
+\index{unit@{unit}!Autonomous Target Acquisition and Engagement.c@{Autonomous Target Acquisition and Engagement.c}}
+\subsubsection[{unit}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf unit}}}
+\label{_autonomous_01_target_01_acquisition_01and_01_engagement_8c_a09cef70e6322053ea80ae603446346c5}
+
+
+temporary variable 
+

@@ -1,0 +1,858 @@
+\hypertarget{group6_8c}{
+\section{C:/Users/pranav/Desktop/code/group6.c File Reference}
+\label{group6_8c}\index{C:/Users/pranav/Desktop/code/group6.c@{C:/Users/pranav/Desktop/code/group6.c}}
+}
+{\ttfamily \#include $<$avr/io.h$>$}\par
+{\ttfamily \#include $<$avr/interrupt.h$>$}\par
+{\ttfamily \#include $<$util/delay.h$>$}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group6_8c_a9d4ad5467cb8a39312513dfaaf4d950a}{FCPU}~11059200ul
+\begin{DoxyCompactList}\small\item\em defined here to make sure that program works properly \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_af8903d8eea3868940c60af887473b152}{RS}~0
+\begin{DoxyCompactList}\small\item\em Command input channel in LCD. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_afc4ded33ac0ca43defcce639e965748a}{RW}~1
+\begin{DoxyCompactList}\small\item\em Write channel in LCD. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_a22e6626f2c98ed902f8ded47f6438c05}{EN}~2
+\begin{DoxyCompactList}\small\item\em Enable in LCD. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_ab44cc79afa2e158e5173a42d0bdd01b0}{lcd\_\-port}~PORTC
+\begin{DoxyCompactList}\small\item\em Defining the LCD port. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_a0e1a587a6bb537fb5e9c836231291df4}{sbit}(reg, bit)~reg $|$= (1$<$$<$bit)
+\begin{DoxyCompactList}\small\item\em Macro defined for Setting a bit of any register. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_aad24a3ffd9b61c778f99521f717864a9}{cbit}(reg, bit)~reg \&= $\sim$(1$<$$<$bit)
+\begin{DoxyCompactList}\small\item\em Macro defined for Clearing a bit of any register. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_af0a76327c4f1a6465ebedfe6ced86d3a}{upper\_\-limit}~160
+\begin{DoxyCompactList}\small\item\em Upper limit for rotation of servo motor. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_a0f2f22b987f15b4e1c45f3e4d10aa0ee}{lower\_\-limit}~90
+\begin{DoxyCompactList}\small\item\em Lower limit for rotation of servo motor. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_a2e935d065a2022d39231dcdab4a5230e}{rotation\_\-angle}~10
+\begin{DoxyCompactList}\small\item\em Rotation angle of the servo motors. \end{DoxyCompactList}\item 
+\#define \hyperlink{group6_8c_a7e4c637a4e80d32ed5f4d410f48711ef}{left\_\-right\_\-delay}~80
+\begin{DoxyCompactList}\small\item\em The time to run the bot to left before stopping during both scanning and centering. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group6_8c_aa239ab5a6704dda21c5071b32a3cf3a8}{init\_\-ports} ()
+\begin{DoxyCompactList}\small\item\em Initializing the ports of LCD,motors,servo motors,buzzer. \end{DoxyCompactList}\item 
+void \hyperlink{group6_8c_a03dc9c23d8a1f0bb7e5b395c019f3732}{lcd\_\-reset} ()
+\begin{DoxyCompactList}\small\item\em For LCD reset ie clear screen,curser at initial position. \end{DoxyCompactList}\item 
+void \hyperlink{group6_8c_ac23e73124dc9fabae95671fe71d074a6}{lcd\_\-init} ()
+\begin{DoxyCompactList}\small\item\em LCD initialization used in init ports. \end{DoxyCompactList}\item 
+void \hyperlink{group6_8c_afff7370014e73715ce0d31b4d994c916}{lcd\_\-wr\_\-command} (unsigned char)
+\begin{DoxyCompactList}\small\item\em Function for writing into the lcd screen charactar at a time. \end{DoxyCompactList}\item 
+void \hyperlink{group6_8c_a02b47802a409ab525f2fda28140150b0}{lcd\_\-wr\_\-char} (char)
+\item 
+void \hyperlink{group6_8c_a8a87d9ade20f16ea6fcbb5e577f57692}{lcd\_\-line1} ()
+\item 
+void \hyperlink{group6_8c_a7be548d155d3819a14a30964d7082f65}{lcd\_\-line2} ()
+\item 
+void \hyperlink{group6_8c_a1eeb0747ef56e3dab0a64e7688b3ff65}{lcd\_\-string} (char $\ast$)
+\item 
+void \hyperlink{group6_8c_af55f75f83e87baf043c835ef54412b99}{lcd\_\-port\_\-config} (void)
+\item 
+void \hyperlink{group6_8c_a10cb8a1450bfb05cd9c72ad09ce7f2fe}{motion\_\-set} (unsigned char Direction)
+\item 
+void \hyperlink{group6_8c_af58faf62f4e3606140250fb9ed314db5}{left} (void)
+\item 
+void \hyperlink{group6_8c_ae56b9a694abd24fe3e7af591fc50b748}{right} (void)
+\item 
+void \hyperlink{group6_8c_aacf6bf8e121fea8b0a92d7197b73fe27}{stop} (void)
+\item 
+void \hyperlink{group6_8c_a17cf811a885634d71a23e8d4a20457f0}{motion\_\-pin\_\-config} (void)
+\item 
+void \hyperlink{group6_8c_a3f8a3732239f1ff251be98da40c120e1}{lcd\_\-set\_\-4bit} ()
+\item 
+void \hyperlink{group6_8c_a60675105b93bba6762aaab88d732365a}{lcd\_\-home} ()
+\item 
+void \hyperlink{group6_8c_a58b03aa7464b2fb9b23e24fe8cd06df9}{lcd\_\-cursor} (char row, char column)
+\item 
+void \hyperlink{group6_8c_a73a5ab32b7aee89eeb34133ff3fc8bc8}{lcd\_\-print} (char row, char coloumn, unsigned int value, int digits)
+\item 
+void \hyperlink{group6_8c_af87425963403c39dd2a5686722662e1b}{servo1\_\-pin\_\-config} (void)
+\item 
+void \hyperlink{group6_8c_a9cbd58ccc49c66f6691fc3e8a4e06c07}{servo2\_\-pin\_\-config} (void)
+\item 
+void \hyperlink{group6_8c_aea7136b3f5f3dee0bba462ad740018e0}{servo3\_\-pin\_\-config} (void)
+\item 
+void \hyperlink{group6_8c_a968c314be24f7043eeff034ebf7c4a03}{timer1\_\-init} (void)
+\item 
+void \hyperlink{group6_8c_a5e83e38113e61aa98a5737499e18a31b}{servo\_\-1} (unsigned char degrees)
+\item 
+void \hyperlink{group6_8c_a581d9af2c6c9d23ca521f637075e1bc1}{servo\_\-2} (unsigned char degrees)
+\item 
+void \hyperlink{group6_8c_a13cace908a54e6c7b6e7ff259b2b1d90}{servo\_\-3} (unsigned char degrees)
+\item 
+void \hyperlink{group6_8c_a6c7ed6efeeb194c0a0c511380a31a2e5}{servo\_\-1\_\-free} (void)
+\item 
+void \hyperlink{group6_8c_ada43b85d1e8c8343f99fcdaa12b71c3e}{servo\_\-2\_\-free} (void)
+\item 
+void \hyperlink{group6_8c_a24305cafe8f6103e8434f56aa0df538a}{servo\_\-3\_\-free} (void)
+\item 
+void \hyperlink{group6_8c_a0c6063fcb1153fa4c8c348b9e759be78}{buzzer\_\-pin\_\-config} (void)
+\item 
+void \hyperlink{group6_8c_a5c2ba800834495bb295891490cb1c760}{port\_\-init} ()
+\item 
+void \hyperlink{group6_8c_a4dd394839cc1e77986c84b3a3679bcd8}{buzzer\_\-on} (void)
+\item 
+void \hyperlink{group6_8c_a93d07c81691fec7a85ea85117d6eca4f}{buzzer\_\-off} (void)
+\item 
+void \hyperlink{group6_8c_aa50c94354a39dd6f4a609f874ac4a43d}{uart1\_\-init} (void)
+\item 
+\hyperlink{group6_8c_ae34e8fb322ce451af1fa55641835922d}{SIGNAL} (SIG\_\-USART1\_\-RECV)
+\item 
+void \hyperlink{group6_8c_ab01199c927ceda6f9520c7afb0f1b099}{init\_\-devices} ()
+\item 
+int \hyperlink{group6_8c_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{group6_8c_a433b1c9921d3b90f7c145c781a43f325}{data}
+\begin{DoxyCompactList}\small\item\em To store received data from UDR1. \end{DoxyCompactList}\item 
+int \hyperlink{group6_8c_a3cc7dbf631c311fedcb76470f3d44700}{PositionPanServo\_\-1}
+\begin{DoxyCompactList}\small\item\em To maintain the states of the servo moters. \end{DoxyCompactList}\item 
+int \hyperlink{group6_8c_a39900369305e1d93b99e61b67943862c}{PositionPanServo\_\-2}
+\begin{DoxyCompactList}\small\item\em To maintain the states of the servo moters. \end{DoxyCompactList}\item 
+int \hyperlink{group6_8c_af8121d1cd83f65d7889f54689985463f}{PositionPanServo\_\-3}
+\begin{DoxyCompactList}\small\item\em To maintain the states of the servo moters. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{group6_8c_a13006074294a071b6c7a268a498f77f7}{temp}
+\item 
+unsigned int \hyperlink{group6_8c_a09cef70e6322053ea80ae603446346c5}{unit}
+\item 
+unsigned int \hyperlink{group6_8c_ab84b805352ca4b7ecfc9601ddab528bc}{tens}
+\item 
+unsigned int \hyperlink{group6_8c_a913b0b4b2d4fd1ccc45534741d386cc8}{hundred}
+\item 
+unsigned int \hyperlink{group6_8c_aa790b5f78a8f90d800d64c46c3e40205}{thousand}
+\item 
+unsigned int \hyperlink{group6_8c_ae98244497f01cb51c50a6a1d18642b71}{million}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{group6_8c_aad24a3ffd9b61c778f99521f717864a9}{
+\index{group6.c@{group6.c}!cbit@{cbit}}
+\index{cbit@{cbit}!group6.c@{group6.c}}
+\subsubsection[{cbit}]{\setlength{\rightskip}{0pt plus 5cm}\#define cbit(
+\begin{DoxyParamCaption}
+\item[{}]{reg, }
+\item[{}]{bit}
+\end{DoxyParamCaption}
+)~reg \&= $\sim$(1$<$$<$bit)}}
+\label{group6_8c_aad24a3ffd9b61c778f99521f717864a9}
+
+
+Macro defined for Clearing a bit of any register. 
+
+
+
+Definition at line 137 of file group6.c.
+
+\hypertarget{group6_8c_a22e6626f2c98ed902f8ded47f6438c05}{
+\index{group6.c@{group6.c}!EN@{EN}}
+\index{EN@{EN}!group6.c@{group6.c}}
+\subsubsection[{EN}]{\setlength{\rightskip}{0pt plus 5cm}\#define EN~2}}
+\label{group6_8c_a22e6626f2c98ed902f8ded47f6438c05}
+
+
+Enable in LCD. 
+
+
+
+Definition at line 131 of file group6.c.
+
+\hypertarget{group6_8c_a9d4ad5467cb8a39312513dfaaf4d950a}{
+\index{group6.c@{group6.c}!FCPU@{FCPU}}
+\index{FCPU@{FCPU}!group6.c@{group6.c}}
+\subsubsection[{FCPU}]{\setlength{\rightskip}{0pt plus 5cm}\#define FCPU~11059200ul}}
+\label{group6_8c_a9d4ad5467cb8a39312513dfaaf4d950a}
+
+
+defined here to make sure that program works properly 
+
+
+
+Definition at line 125 of file group6.c.
+
+\hypertarget{group6_8c_ab44cc79afa2e158e5173a42d0bdd01b0}{
+\index{group6.c@{group6.c}!lcd\_\-port@{lcd\_\-port}}
+\index{lcd\_\-port@{lcd\_\-port}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-port}]{\setlength{\rightskip}{0pt plus 5cm}\#define lcd\_\-port~PORTC}}
+\label{group6_8c_ab44cc79afa2e158e5173a42d0bdd01b0}
+
+
+Defining the LCD port. 
+
+
+
+Definition at line 133 of file group6.c.
+
+\hypertarget{group6_8c_a7e4c637a4e80d32ed5f4d410f48711ef}{
+\index{group6.c@{group6.c}!left\_\-right\_\-delay@{left\_\-right\_\-delay}}
+\index{left\_\-right\_\-delay@{left\_\-right\_\-delay}!group6.c@{group6.c}}
+\subsubsection[{left\_\-right\_\-delay}]{\setlength{\rightskip}{0pt plus 5cm}\#define left\_\-right\_\-delay~80}}
+\label{group6_8c_a7e4c637a4e80d32ed5f4d410f48711ef}
+
+
+The time to run the bot to left before stopping during both scanning and centering. 
+
+
+
+Definition at line 145 of file group6.c.
+
+\hypertarget{group6_8c_a0f2f22b987f15b4e1c45f3e4d10aa0ee}{
+\index{group6.c@{group6.c}!lower\_\-limit@{lower\_\-limit}}
+\index{lower\_\-limit@{lower\_\-limit}!group6.c@{group6.c}}
+\subsubsection[{lower\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}\#define lower\_\-limit~90}}
+\label{group6_8c_a0f2f22b987f15b4e1c45f3e4d10aa0ee}
+
+
+Lower limit for rotation of servo motor. 
+
+
+
+Definition at line 141 of file group6.c.
+
+\hypertarget{group6_8c_a2e935d065a2022d39231dcdab4a5230e}{
+\index{group6.c@{group6.c}!rotation\_\-angle@{rotation\_\-angle}}
+\index{rotation\_\-angle@{rotation\_\-angle}!group6.c@{group6.c}}
+\subsubsection[{rotation\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}\#define rotation\_\-angle~10}}
+\label{group6_8c_a2e935d065a2022d39231dcdab4a5230e}
+
+
+Rotation angle of the servo motors. 
+
+
+
+Definition at line 143 of file group6.c.
+
+\hypertarget{group6_8c_af8903d8eea3868940c60af887473b152}{
+\index{group6.c@{group6.c}!RS@{RS}}
+\index{RS@{RS}!group6.c@{group6.c}}
+\subsubsection[{RS}]{\setlength{\rightskip}{0pt plus 5cm}\#define RS~0}}
+\label{group6_8c_af8903d8eea3868940c60af887473b152}
+
+
+Command input channel in LCD. 
+
+
+
+Definition at line 127 of file group6.c.
+
+\hypertarget{group6_8c_afc4ded33ac0ca43defcce639e965748a}{
+\index{group6.c@{group6.c}!RW@{RW}}
+\index{RW@{RW}!group6.c@{group6.c}}
+\subsubsection[{RW}]{\setlength{\rightskip}{0pt plus 5cm}\#define RW~1}}
+\label{group6_8c_afc4ded33ac0ca43defcce639e965748a}
+
+
+Write channel in LCD. 
+
+
+
+Definition at line 129 of file group6.c.
+
+\hypertarget{group6_8c_a0e1a587a6bb537fb5e9c836231291df4}{
+\index{group6.c@{group6.c}!sbit@{sbit}}
+\index{sbit@{sbit}!group6.c@{group6.c}}
+\subsubsection[{sbit}]{\setlength{\rightskip}{0pt plus 5cm}\#define sbit(
+\begin{DoxyParamCaption}
+\item[{}]{reg, }
+\item[{}]{bit}
+\end{DoxyParamCaption}
+)~reg $|$= (1$<$$<$bit)}}
+\label{group6_8c_a0e1a587a6bb537fb5e9c836231291df4}
+
+
+Macro defined for Setting a bit of any register. 
+
+
+
+Definition at line 135 of file group6.c.
+
+\hypertarget{group6_8c_af0a76327c4f1a6465ebedfe6ced86d3a}{
+\index{group6.c@{group6.c}!upper\_\-limit@{upper\_\-limit}}
+\index{upper\_\-limit@{upper\_\-limit}!group6.c@{group6.c}}
+\subsubsection[{upper\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}\#define upper\_\-limit~160}}
+\label{group6_8c_af0a76327c4f1a6465ebedfe6ced86d3a}
+
+
+Upper limit for rotation of servo motor. 
+
+
+
+Definition at line 139 of file group6.c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{group6_8c_a93d07c81691fec7a85ea85117d6eca4f}{
+\index{group6.c@{group6.c}!buzzer\_\-off@{buzzer\_\-off}}
+\index{buzzer\_\-off@{buzzer\_\-off}!group6.c@{group6.c}}
+\subsubsection[{buzzer\_\-off}]{\setlength{\rightskip}{0pt plus 5cm}void buzzer\_\-off (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a93d07c81691fec7a85ea85117d6eca4f}
+
+
+Definition at line 535 of file group6.c.
+
+\hypertarget{group6_8c_a4dd394839cc1e77986c84b3a3679bcd8}{
+\index{group6.c@{group6.c}!buzzer\_\-on@{buzzer\_\-on}}
+\index{buzzer\_\-on@{buzzer\_\-on}!group6.c@{group6.c}}
+\subsubsection[{buzzer\_\-on}]{\setlength{\rightskip}{0pt plus 5cm}void buzzer\_\-on (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a4dd394839cc1e77986c84b3a3679bcd8}
+
+
+Definition at line 527 of file group6.c.
+
+\hypertarget{group6_8c_a0c6063fcb1153fa4c8c348b9e759be78}{
+\index{group6.c@{group6.c}!buzzer\_\-pin\_\-config@{buzzer\_\-pin\_\-config}}
+\index{buzzer\_\-pin\_\-config@{buzzer\_\-pin\_\-config}!group6.c@{group6.c}}
+\subsubsection[{buzzer\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void buzzer\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a0c6063fcb1153fa4c8c348b9e759be78}
+
+
+Definition at line 509 of file group6.c.
+
+\hypertarget{group6_8c_ab01199c927ceda6f9520c7afb0f1b099}{
+\index{group6.c@{group6.c}!init\_\-devices@{init\_\-devices}}
+\index{init\_\-devices@{init\_\-devices}!group6.c@{group6.c}}
+\subsubsection[{init\_\-devices}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\-devices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_ab01199c927ceda6f9520c7afb0f1b099}
+
+
+Definition at line 695 of file group6.c.
+
+\hypertarget{group6_8c_aa239ab5a6704dda21c5071b32a3cf3a8}{
+\index{group6.c@{group6.c}!init\_\-ports@{init\_\-ports}}
+\index{init\_\-ports@{init\_\-ports}!group6.c@{group6.c}}
+\subsubsection[{init\_\-ports}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\-ports (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_aa239ab5a6704dda21c5071b32a3cf3a8}
+
+
+Initializing the ports of LCD,motors,servo motors,buzzer. 
+
+\hypertarget{group6_8c_a58b03aa7464b2fb9b23e24fe8cd06df9}{
+\index{group6.c@{group6.c}!lcd\_\-cursor@{lcd\_\-cursor}}
+\index{lcd\_\-cursor@{lcd\_\-cursor}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-cursor}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-cursor (
+\begin{DoxyParamCaption}
+\item[{char}]{row, }
+\item[{char}]{column}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a58b03aa7464b2fb9b23e24fe8cd06df9}
+
+
+Definition at line 332 of file group6.c.
+
+\hypertarget{group6_8c_a60675105b93bba6762aaab88d732365a}{
+\index{group6.c@{group6.c}!lcd\_\-home@{lcd\_\-home}}
+\index{lcd\_\-home@{lcd\_\-home}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-home}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-home (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a60675105b93bba6762aaab88d732365a}
+
+
+Definition at line 314 of file group6.c.
+
+\hypertarget{group6_8c_ac23e73124dc9fabae95671fe71d074a6}{
+\index{group6.c@{group6.c}!lcd\_\-init@{lcd\_\-init}}
+\index{lcd\_\-init@{lcd\_\-init}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_ac23e73124dc9fabae95671fe71d074a6}
+
+
+LCD initialization used in init ports. 
+
+\hypertarget{group6_8c_a8a87d9ade20f16ea6fcbb5e577f57692}{
+\index{group6.c@{group6.c}!lcd\_\-line1@{lcd\_\-line1}}
+\index{lcd\_\-line1@{lcd\_\-line1}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-line1}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-line1 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a8a87d9ade20f16ea6fcbb5e577f57692}
+\hypertarget{group6_8c_a7be548d155d3819a14a30964d7082f65}{
+\index{group6.c@{group6.c}!lcd\_\-line2@{lcd\_\-line2}}
+\index{lcd\_\-line2@{lcd\_\-line2}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-line2}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-line2 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a7be548d155d3819a14a30964d7082f65}
+\hypertarget{group6_8c_af55f75f83e87baf043c835ef54412b99}{
+\index{group6.c@{group6.c}!lcd\_\-port\_\-config@{lcd\_\-port\_\-config}}
+\index{lcd\_\-port\_\-config@{lcd\_\-port\_\-config}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-port\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-port\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_af55f75f83e87baf043c835ef54412b99}
+
+
+Definition at line 168 of file group6.c.
+
+\hypertarget{group6_8c_a73a5ab32b7aee89eeb34133ff3fc8bc8}{
+\index{group6.c@{group6.c}!lcd\_\-print@{lcd\_\-print}}
+\index{lcd\_\-print@{lcd\_\-print}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-print (
+\begin{DoxyParamCaption}
+\item[{char}]{row, }
+\item[{char}]{coloumn, }
+\item[{unsigned int}]{value, }
+\item[{int}]{digits}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a73a5ab32b7aee89eeb34133ff3fc8bc8}
+
+
+Definition at line 344 of file group6.c.
+
+\hypertarget{group6_8c_a03dc9c23d8a1f0bb7e5b395c019f3732}{
+\index{group6.c@{group6.c}!lcd\_\-reset@{lcd\_\-reset}}
+\index{lcd\_\-reset@{lcd\_\-reset}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-reset}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a03dc9c23d8a1f0bb7e5b395c019f3732}
+
+
+For LCD reset ie clear screen,curser at initial position. 
+
+\hypertarget{group6_8c_a3f8a3732239f1ff251be98da40c120e1}{
+\index{group6.c@{group6.c}!lcd\_\-set\_\-4bit@{lcd\_\-set\_\-4bit}}
+\index{lcd\_\-set\_\-4bit@{lcd\_\-set\_\-4bit}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-set\_\-4bit}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-set\_\-4bit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a3f8a3732239f1ff251be98da40c120e1}
+
+
+Definition at line 207 of file group6.c.
+
+\hypertarget{group6_8c_a1eeb0747ef56e3dab0a64e7688b3ff65}{
+\index{group6.c@{group6.c}!lcd\_\-string@{lcd\_\-string}}
+\index{lcd\_\-string@{lcd\_\-string}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a1eeb0747ef56e3dab0a64e7688b3ff65}
+\hypertarget{group6_8c_a02b47802a409ab525f2fda28140150b0}{
+\index{group6.c@{group6.c}!lcd\_\-wr\_\-char@{lcd\_\-wr\_\-char}}
+\index{lcd\_\-wr\_\-char@{lcd\_\-wr\_\-char}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-wr\_\-char}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-wr\_\-char (
+\begin{DoxyParamCaption}
+\item[{char}]{letter}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a02b47802a409ab525f2fda28140150b0}
+\hypertarget{group6_8c_afff7370014e73715ce0d31b4d994c916}{
+\index{group6.c@{group6.c}!lcd\_\-wr\_\-command@{lcd\_\-wr\_\-command}}
+\index{lcd\_\-wr\_\-command@{lcd\_\-wr\_\-command}!group6.c@{group6.c}}
+\subsubsection[{lcd\_\-wr\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\_\-wr\_\-command (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{cmd}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_afff7370014e73715ce0d31b4d994c916}
+
+
+Function for writing into the lcd screen charactar at a time. 
+
+\hypertarget{group6_8c_af58faf62f4e3606140250fb9ed314db5}{
+\index{group6.c@{group6.c}!left@{left}}
+\index{left@{left}!group6.c@{group6.c}}
+\subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}void left (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_af58faf62f4e3606140250fb9ed314db5}
+
+
+Definition at line 185 of file group6.c.
+
+\hypertarget{group6_8c_a840291bc02cba5474a4cb46a9b9566fe}{
+\index{group6.c@{group6.c}!main@{main}}
+\index{main@{main}!group6.c@{group6.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+Definition at line 705 of file group6.c.
+
+\hypertarget{group6_8c_a17cf811a885634d71a23e8d4a20457f0}{
+\index{group6.c@{group6.c}!motion\_\-pin\_\-config@{motion\_\-pin\_\-config}}
+\index{motion\_\-pin\_\-config@{motion\_\-pin\_\-config}!group6.c@{group6.c}}
+\subsubsection[{motion\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void motion\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a17cf811a885634d71a23e8d4a20457f0}
+
+
+Definition at line 198 of file group6.c.
+
+\hypertarget{group6_8c_a10cb8a1450bfb05cd9c72ad09ce7f2fe}{
+\index{group6.c@{group6.c}!motion\_\-set@{motion\_\-set}}
+\index{motion\_\-set@{motion\_\-set}!group6.c@{group6.c}}
+\subsubsection[{motion\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}void motion\_\-set (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{Direction}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a10cb8a1450bfb05cd9c72ad09ce7f2fe}
+
+
+Definition at line 173 of file group6.c.
+
+\hypertarget{group6_8c_a5c2ba800834495bb295891490cb1c760}{
+\index{group6.c@{group6.c}!port\_\-init@{port\_\-init}}
+\index{port\_\-init@{port\_\-init}!group6.c@{group6.c}}
+\subsubsection[{port\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void port\_\-init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a5c2ba800834495bb295891490cb1c760}
+
+
+Definition at line 517 of file group6.c.
+
+\hypertarget{group6_8c_ae56b9a694abd24fe3e7af591fc50b748}{
+\index{group6.c@{group6.c}!right@{right}}
+\index{right@{right}!group6.c@{group6.c}}
+\subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}void right (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_ae56b9a694abd24fe3e7af591fc50b748}
+
+
+Definition at line 190 of file group6.c.
+
+\hypertarget{group6_8c_af87425963403c39dd2a5686722662e1b}{
+\index{group6.c@{group6.c}!servo1\_\-pin\_\-config@{servo1\_\-pin\_\-config}}
+\index{servo1\_\-pin\_\-config@{servo1\_\-pin\_\-config}!group6.c@{group6.c}}
+\subsubsection[{servo1\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void servo1\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_af87425963403c39dd2a5686722662e1b}
+
+
+Definition at line 397 of file group6.c.
+
+\hypertarget{group6_8c_a9cbd58ccc49c66f6691fc3e8a4e06c07}{
+\index{group6.c@{group6.c}!servo2\_\-pin\_\-config@{servo2\_\-pin\_\-config}}
+\index{servo2\_\-pin\_\-config@{servo2\_\-pin\_\-config}!group6.c@{group6.c}}
+\subsubsection[{servo2\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void servo2\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a9cbd58ccc49c66f6691fc3e8a4e06c07}
+
+
+Definition at line 404 of file group6.c.
+
+\hypertarget{group6_8c_aea7136b3f5f3dee0bba462ad740018e0}{
+\index{group6.c@{group6.c}!servo3\_\-pin\_\-config@{servo3\_\-pin\_\-config}}
+\index{servo3\_\-pin\_\-config@{servo3\_\-pin\_\-config}!group6.c@{group6.c}}
+\subsubsection[{servo3\_\-pin\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void servo3\_\-pin\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_aea7136b3f5f3dee0bba462ad740018e0}
+
+
+Definition at line 411 of file group6.c.
+
+\hypertarget{group6_8c_a5e83e38113e61aa98a5737499e18a31b}{
+\index{group6.c@{group6.c}!servo\_\-1@{servo\_\-1}}
+\index{servo\_\-1@{servo\_\-1}!group6.c@{group6.c}}
+\subsubsection[{servo\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-1 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{degrees}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a5e83e38113e61aa98a5737499e18a31b}
+
+
+Definition at line 447 of file group6.c.
+
+\hypertarget{group6_8c_a6c7ed6efeeb194c0a0c511380a31a2e5}{
+\index{group6.c@{group6.c}!servo\_\-1\_\-free@{servo\_\-1\_\-free}}
+\index{servo\_\-1\_\-free@{servo\_\-1\_\-free}!group6.c@{group6.c}}
+\subsubsection[{servo\_\-1\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-1\_\-free (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a6c7ed6efeeb194c0a0c511380a31a2e5}
+
+
+Definition at line 490 of file group6.c.
+
+\hypertarget{group6_8c_a581d9af2c6c9d23ca521f637075e1bc1}{
+\index{group6.c@{group6.c}!servo\_\-2@{servo\_\-2}}
+\index{servo\_\-2@{servo\_\-2}!group6.c@{group6.c}}
+\subsubsection[{servo\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-2 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{degrees}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a581d9af2c6c9d23ca521f637075e1bc1}
+
+
+Definition at line 460 of file group6.c.
+
+\hypertarget{group6_8c_ada43b85d1e8c8343f99fcdaa12b71c3e}{
+\index{group6.c@{group6.c}!servo\_\-2\_\-free@{servo\_\-2\_\-free}}
+\index{servo\_\-2\_\-free@{servo\_\-2\_\-free}!group6.c@{group6.c}}
+\subsubsection[{servo\_\-2\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-2\_\-free (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_ada43b85d1e8c8343f99fcdaa12b71c3e}
+
+
+Definition at line 496 of file group6.c.
+
+\hypertarget{group6_8c_a13cace908a54e6c7b6e7ff259b2b1d90}{
+\index{group6.c@{group6.c}!servo\_\-3@{servo\_\-3}}
+\index{servo\_\-3@{servo\_\-3}!group6.c@{group6.c}}
+\subsubsection[{servo\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-3 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{degrees}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a13cace908a54e6c7b6e7ff259b2b1d90}
+
+
+Definition at line 477 of file group6.c.
+
+\hypertarget{group6_8c_a24305cafe8f6103e8434f56aa0df538a}{
+\index{group6.c@{group6.c}!servo\_\-3\_\-free@{servo\_\-3\_\-free}}
+\index{servo\_\-3\_\-free@{servo\_\-3\_\-free}!group6.c@{group6.c}}
+\subsubsection[{servo\_\-3\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void servo\_\-3\_\-free (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a24305cafe8f6103e8434f56aa0df538a}
+
+
+Definition at line 502 of file group6.c.
+
+\hypertarget{group6_8c_ae34e8fb322ce451af1fa55641835922d}{
+\index{group6.c@{group6.c}!SIGNAL@{SIGNAL}}
+\index{SIGNAL@{SIGNAL}!group6.c@{group6.c}}
+\subsubsection[{SIGNAL}]{\setlength{\rightskip}{0pt plus 5cm}SIGNAL (
+\begin{DoxyParamCaption}
+\item[{SIG\_\-USART1\_\-RECV}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_ae34e8fb322ce451af1fa55641835922d}
+
+
+Definition at line 559 of file group6.c.
+
+\hypertarget{group6_8c_aacf6bf8e121fea8b0a92d7197b73fe27}{
+\index{group6.c@{group6.c}!stop@{stop}}
+\index{stop@{stop}!group6.c@{group6.c}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}void stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_aacf6bf8e121fea8b0a92d7197b73fe27}
+
+
+Definition at line 194 of file group6.c.
+
+\hypertarget{group6_8c_a968c314be24f7043eeff034ebf7c4a03}{
+\index{group6.c@{group6.c}!timer1\_\-init@{timer1\_\-init}}
+\index{timer1\_\-init@{timer1\_\-init}!group6.c@{group6.c}}
+\subsubsection[{timer1\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void timer1\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_a968c314be24f7043eeff034ebf7c4a03}
+
+
+Output compare eegister high value for servo 3 
+
+
+
+Definition at line 422 of file group6.c.
+
+\hypertarget{group6_8c_aa50c94354a39dd6f4a609f874ac4a43d}{
+\index{group6.c@{group6.c}!uart1\_\-init@{uart1\_\-init}}
+\index{uart1\_\-init@{uart1\_\-init}!group6.c@{group6.c}}
+\subsubsection[{uart1\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void uart1\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{group6_8c_aa50c94354a39dd6f4a609f874ac4a43d}
+
+
+Definition at line 548 of file group6.c.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{group6_8c_a433b1c9921d3b90f7c145c781a43f325}{
+\index{group6.c@{group6.c}!data@{data}}
+\index{data@{data}!group6.c@{group6.c}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf data}}}
+\label{group6_8c_a433b1c9921d3b90f7c145c781a43f325}
+
+
+To store received data from UDR1. 
+
+
+
+Definition at line 117 of file group6.c.
+
+\hypertarget{group6_8c_a913b0b4b2d4fd1ccc45534741d386cc8}{
+\index{group6.c@{group6.c}!hundred@{hundred}}
+\index{hundred@{hundred}!group6.c@{group6.c}}
+\subsubsection[{hundred}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf hundred}}}
+\label{group6_8c_a913b0b4b2d4fd1ccc45534741d386cc8}
+
+
+Definition at line 163 of file group6.c.
+
+\hypertarget{group6_8c_ae98244497f01cb51c50a6a1d18642b71}{
+\index{group6.c@{group6.c}!million@{million}}
+\index{million@{million}!group6.c@{group6.c}}
+\subsubsection[{million}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf million}}}
+\label{group6_8c_ae98244497f01cb51c50a6a1d18642b71}
+
+
+Definition at line 165 of file group6.c.
+
+\hypertarget{group6_8c_a3cc7dbf631c311fedcb76470f3d44700}{
+\index{group6.c@{group6.c}!PositionPanServo\_\-1@{PositionPanServo\_\-1}}
+\index{PositionPanServo\_\-1@{PositionPanServo\_\-1}!group6.c@{group6.c}}
+\subsubsection[{PositionPanServo\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf PositionPanServo\_\-1}}}
+\label{group6_8c_a3cc7dbf631c311fedcb76470f3d44700}
+
+
+To maintain the states of the servo moters. 
+
+
+
+Definition at line 119 of file group6.c.
+
+\hypertarget{group6_8c_a39900369305e1d93b99e61b67943862c}{
+\index{group6.c@{group6.c}!PositionPanServo\_\-2@{PositionPanServo\_\-2}}
+\index{PositionPanServo\_\-2@{PositionPanServo\_\-2}!group6.c@{group6.c}}
+\subsubsection[{PositionPanServo\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf PositionPanServo\_\-2}}}
+\label{group6_8c_a39900369305e1d93b99e61b67943862c}
+
+
+To maintain the states of the servo moters. 
+
+
+
+Definition at line 121 of file group6.c.
+
+\hypertarget{group6_8c_af8121d1cd83f65d7889f54689985463f}{
+\index{group6.c@{group6.c}!PositionPanServo\_\-3@{PositionPanServo\_\-3}}
+\index{PositionPanServo\_\-3@{PositionPanServo\_\-3}!group6.c@{group6.c}}
+\subsubsection[{PositionPanServo\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf PositionPanServo\_\-3}}}
+\label{group6_8c_af8121d1cd83f65d7889f54689985463f}
+
+
+To maintain the states of the servo moters. 
+
+
+
+Definition at line 123 of file group6.c.
+
+\hypertarget{group6_8c_a13006074294a071b6c7a268a498f77f7}{
+\index{group6.c@{group6.c}!temp@{temp}}
+\index{temp@{temp}!group6.c@{group6.c}}
+\subsubsection[{temp}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf temp}}}
+\label{group6_8c_a13006074294a071b6c7a268a498f77f7}
+
+
+Definition at line 160 of file group6.c.
+
+\hypertarget{group6_8c_ab84b805352ca4b7ecfc9601ddab528bc}{
+\index{group6.c@{group6.c}!tens@{tens}}
+\index{tens@{tens}!group6.c@{group6.c}}
+\subsubsection[{tens}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf tens}}}
+\label{group6_8c_ab84b805352ca4b7ecfc9601ddab528bc}
+
+
+Definition at line 162 of file group6.c.
+
+\hypertarget{group6_8c_aa790b5f78a8f90d800d64c46c3e40205}{
+\index{group6.c@{group6.c}!thousand@{thousand}}
+\index{thousand@{thousand}!group6.c@{group6.c}}
+\subsubsection[{thousand}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf thousand}}}
+\label{group6_8c_aa790b5f78a8f90d800d64c46c3e40205}
+
+
+Definition at line 164 of file group6.c.
+
+\hypertarget{group6_8c_a09cef70e6322053ea80ae603446346c5}{
+\index{group6.c@{group6.c}!unit@{unit}}
+\index{unit@{unit}!group6.c@{group6.c}}
+\subsubsection[{unit}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf unit}}}
+\label{group6_8c_a09cef70e6322053ea80ae603446346c5}
+
+
+Definition at line 161 of file group6.c.
+
